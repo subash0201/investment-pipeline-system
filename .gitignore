@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+db.sqlite3
+
+# Node
+node_modules/
+dist/
+
+# Local settings
+.env
+.env.local
+.DS_Store
+
+# Django build output
+staticfiles/
+.cache/
+*.log
+backups/

@@ -1,0 +1,34 @@
+# /etc/systemd/system/iptds.service
+# Runs the Django API with Gunicorn. Adjust APP_DIR (/var/www/iptds) and User if yours differ.
+#   sudo cp deploy/systemd/iptds.service /etc/systemd/system/
+#   sudo systemctl daemon-reload && sudo systemctl enable --now iptds
+#   journalctl -u iptds -f          # logs
+
+[Unit]
+Description=IPTDS Django API (Gunicorn)
+After=network.target postgresql.service
+Wants=postgresql.service
+
+[Service]
+Type=simple
+User=iptds
+Group=www-data
+WorkingDirectory=/var/www/iptds/backend/investment_pipeline
+# backend/.env is also read by settings.py; listing it here keeps gunicorn's own env in step.
+EnvironmentFile=/var/www/iptds/backend/.env
+ExecStart=/var/www/iptds/backend/.venv/bin/gunicorn investment_pipeline.wsgi:application -c /var/www/iptds/deploy/gunicorn.conf.py
+ExecReload=/bin/kill -s HUP $MAINPID
+Restart=always
+RestartSec=5
+KillMode=mixed
+TimeoutStopSec=30
+
+# Hardening
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+ReadWritePaths=/var/www/iptds/backend
+
+[Install]
+WantedBy=multi-user.target
