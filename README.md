@@ -46,20 +46,7 @@ npm install
 npm run dev                        # http://localhost:5173
 ```
 
-## Demo accounts
 
-Password for all of them: `Passw0rd!`
-
-| Role  | Email                    | Opens              |
-|-------|--------------------------|--------------------|
-| User  | sam.rivera@example.com   | User Home (200)    |
-| Admin | alex.morgan@example.com  | Admin Home (300)   |
-| User  | priya.nair@example.com, jo.patel@example.com, lee.chen@example.com | |
-
-`python manage.py seed_demo --reset` wipes the data and loads the demo set again.
-For a real installation skip the seed and run `python manage.py createsuperuser`. Members sign up
-themselves at `/join` (role *User*); administrators are made in the Django admin at `/django-admin/`
-(the React app uses `/admin` for the administrator workspace).
 
 ## How a project moves through the pipeline
 
